@@ -1,4 +1,10 @@
-require('dotenv').config();
+if(process.env.NODE_ENV ==='development'){
+        require('dotenv').config();
+}
+
+
+
+
 const express = require('express');
 const morgan = require('morgan');
 const multer = require('multer');
@@ -8,7 +14,7 @@ const app = express();
 require('./database');
 
 //definitioon of variable port
-app.set('port',3000);
+app.set('port',process.env.PORT || 3000);
 
 //Definition of Middleware
 app.use(morgan('dev'));
@@ -31,5 +37,5 @@ app.use(express.static(path.join(__dirname, './public')));
 
 // Start the server on port 3000
 app.listen(app.get('port'), () => {
-        console.log('Port 3000 in use', app.get('port'));
+        console.log('Port in use', app.get('port'));
 })
